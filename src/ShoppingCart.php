@@ -22,7 +22,7 @@ class ShoppingCart
     {
         ob_start();
 
-        require __DIR__ . '/../template/cart.tpl';
+        require ROOT_PATH . '/template/cart.tpl';
 
         $result = ob_get_contents();
         ob_clean();

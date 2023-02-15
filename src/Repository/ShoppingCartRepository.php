@@ -23,12 +23,12 @@ class ShoppingCartRepository
      */
     public function getShoppingCart($shoppingCartId): ShoppingCart
     {
-        $stmt = $this->connection->prepare("select * from shoppingcart where shoppingcartid = $shoppingCartId");
+        $stmt = $this->connection->prepare("select * from shopping_cart where shopping_cart_id = ?");
 
-        $stmt->execute();
+        $stmt->execute([$shoppingCartId]);
 
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        $shoppingCartId = (int) $result['shoppingcartid'];
+        $shoppingCartId = (int) $result['shopping_cart_id'];
 
         return new ShoppingCart(
             $shoppingCartId,
@@ -42,17 +42,15 @@ class ShoppingCartRepository
      */
     private function getLines(int $shoppingCartId): array
     {
-        $stmt = $this->connection->prepare("select * from shoppingcart_line where shoppingcartid = :shoppingCartId");
+        $stmt = $this->connection->prepare("select * from shopping_cart_line where shopping_cart_id = ?");
 
-        $stmt->execute([
-            'shoppingCartId' => $shoppingCartId
-        ]);
+        $stmt->execute([$shoppingCartId]);
 
         $lines = [];
 
         while ($result = $stmt->fetch(\PDO::FETCH_ASSOC))
         {
-            $lineId = (int) $result['shoppingcartlineid'];
+            $lineId = (int) $result['shopping_cart_line_id'];
             $items = $this->getItems($lineId);
 
             $lines[] = new ShoppingCartLine(
@@ -70,22 +68,20 @@ class ShoppingCartRepository
      */
     private function getItems(int $shoppingCartLineId): array
     {
-        $stmt = $this->connection->prepare("select * from shoppingcart_item where shoppingcartlineid = :shoppingCartLineId");
+        $stmt = $this->connection->prepare("select * from shopping_cart_item where shopping_cart_line_id = ?");
 
-        $stmt->execute([
-            'shoppingCartLineId' => $shoppingCartLineId
-        ]);
+        $stmt->execute([$shoppingCartLineId]);
 
         $items = [];
 
         while ($result = $stmt->fetch(\PDO::FETCH_ASSOC))
         {
             $items[] = new ShoppingCartItem(
-                (int) $result['shoppingcartitemid'],
+                (int) $result['shopping_cart_item_id'],
                 (int) $result['quantity'],
-                (int) $result['unitprice'],
-                (string) $result['productname'],
-                (string) $result['productclass']
+                (int) $result['unit_price'],
+                (string) $result['product_name'],
+                (string) $result['product_class']
             );
         }
 
