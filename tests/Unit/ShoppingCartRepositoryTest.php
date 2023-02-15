@@ -8,12 +8,24 @@ use Coolblue\App\Entity\Product;
 use Coolblue\App\Entity\ShoppingCart;
 use Coolblue\App\Entity\ShoppingCartItem;
 use Coolblue\App\Repository\ShoppingCartRepository;
+use Coolblue\Core\App;
+use Coolblue\Core\Container;
 use PHPUnit\Framework\TestCase;
 
 class ShoppingCartRepositoryTest extends TestCase
 {
 
     private ShoppingCart $shoppingCart;
+
+    public function __construct(?string $name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+
+        if (!defined('ROOT_PATH'))
+            define('ROOT_PATH', __DIR__ . '/../..');
+
+        (new App(new Container()))->boot()->run();
+    }
 
     function setUp(): void
     {
