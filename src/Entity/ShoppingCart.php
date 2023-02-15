@@ -1,24 +1,24 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Coolblue\App\Entity;
 
 final class ShoppingCart
 {
-    /** @var int */
-    private $shoppingCartId;
 
-    /** @var ShoppingCartLine[] */
-    private $lines = [];
+    /** @var ShoppingCartItem[] */
+    private array $items = [];
 
     /**
      * @param int $shoppingCartId
-     * @param ShoppingCartLine[] $lines
+     * @param ShoppingCartItem[] $items
      */
-    public function __construct(int $shoppingCartId, array $lines)
+    public function __construct(
+        protected int $shoppingCartId,
+        array $items
+    )
     {
-        $this->shoppingCartId = $shoppingCartId;
-        array_walk($lines, [$this, 'addLine']);
+        array_walk($items, [$this, 'addItem']);
     }
 
     /**
@@ -32,18 +32,18 @@ final class ShoppingCart
     /**
      * @return array
      */
-    public function getLines(): array
+    public function getItems(): array
     {
-        return $this->lines;
+        return $this->items;
     }
 
     /**
-     * @param ShoppingCartLine $line
+     * @param ShoppingCartItem $item
      * @return self
      */
-    public function addLine(ShoppingCartLine $line): self
+    public function addItem(ShoppingCartItem $item): self
     {
-        $this->lines[] = $line;
+        $this->items[] = $item;
 
         return $this;
     }
@@ -55,13 +55,9 @@ final class ShoppingCart
     {
         $total = 0;
 
-        foreach ($this->getLines() as $line)
-        {
-            /** @var ShoppingCartLine $line */
-            foreach ($line->getItems() as $item) {
-                /** @var ShoppingCartItem $item */
-                $total += $item->getSubtotal();
-            }
+        foreach ($this->getItems() as $item) {
+            /** @var ShoppingCartItem $item */
+            $total += $item->getSubtotal();
         }
 
         return $total;

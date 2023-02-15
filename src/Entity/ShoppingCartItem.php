@@ -1,48 +1,26 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Coolblue\App\Entity;
 
 final class ShoppingCartItem
 {
-    /** @var string */
-    const PRODUCTCLASS_PHYSICAL = 'physical';
-
-    /** @var string */
-    const PRODUCTCLASS_INSURANCE = 'insurance';
-
-    /** @var string */
-    const PRODUCTLCASS_SERVICE = 'service';
-
-    /** @var int */
-    protected $shoppingCartItemId;
-
-    /** @var int */
-    protected $quantity;
-
-    /** @var int */
-    protected $unitPrice;
-
-    /** @var string */
-    protected $productName;
-
-    /** @var string */
-    protected $productClass;
 
     /**
      * @param int $shoppingCartItemId
+     * @param int $productId
      * @param int $quantity
      * @param int $unitPrice
-     * @param string $productName
-     * @param string $productClass
+     * @param Product $product
      */
-    public function __construct(int $shoppingCartItemId, int $quantity, int $unitPrice, string $productName, string $productClass)
+    public function __construct(
+        protected int $shoppingCartItemId,
+        protected int $productId,
+        protected int $quantity,
+        protected int $unitPrice,
+        protected Product $product
+    )
     {
-        $this->shoppingCartItemId = $shoppingCartItemId;
-        $this->quantity = $quantity;
-        $this->unitPrice = $unitPrice;
-        $this->productName = $productName;
-        $this->productClass = $productClass;
     }
 
     /**
@@ -51,6 +29,14 @@ final class ShoppingCartItem
     public function getShoppingCartItemId(): int
     {
         return $this->shoppingCartItemId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProductId(): int
+    {
+        return $this->productId;
     }
 
     /**
@@ -70,19 +56,11 @@ final class ShoppingCartItem
     }
 
     /**
-     * @return string
+     * @return Product
      */
-    public function getProductName(): string
+    public function getProduct(): Product
     {
-        return $this->productName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getProductClass(): string
-    {
-        return $this->productClass;
+        return $this->product;
     }
 
     /**

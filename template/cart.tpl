@@ -6,18 +6,18 @@
             body {
                 font-family: sans-serif;
             }
-
             table {
                 width: 100%;
             }
-
             table th {
                 text-align: left;
                 font-size: 125%;
             }
-
-            table td {
-                padding-bottom: 2rem;
+            table th {
+                padding-bottom: 1rem;
+            }
+            .bold {
+                font-weight: bold;
             }
         </style>
     </head>
@@ -31,40 +31,30 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($this->cart->getLines() as $line): ?>
+                <?php foreach ($this->cart->getItems() as $item): ?>
+                    <?php $physical = ($item->getProduct()->getProductClass() === \Coolblue\App\Entity\Product::CLASS_PHYSICAL); ?>
+                    <?php if ($physical): ?>
+                    <tr class="bold">
+                    <?php else: ?>
                     <tr>
+                    <?php endif; ?>
                         <td>
-                            <?php foreach($line->getItems() as $item): ?>
-                                <?php if ($item->getProductClass() === \Coolblue\App\Entity\ShoppingCartItem::PRODUCTCLASS_PHYSICAL): ?>
-                                    <strong><?=$item->getProductName()?></strong><br />
-                                <?php else: ?>
-                                    <?= ucfirst($item->getProductClass()) ?>: <?=$item->getProductName()?><br />
-                                <?php endif; ?>
-                            <?php endforeach; ?>
+                            <?php if ($physical): ?>
+                            <?=$item->getProduct()->getProductName()?>
+                            <?php else: ?>
+                            <?= ucfirst($item->getProduct()->getProductClass()) ?>: <?=$item->getProduct()->getProductName()?>
+                            <?php endif; ?>
                         </td>
                         <td>
-                            <?php foreach($line->getItems() as $item): ?>
-                                <?php if ($item->getProductClass() === \Coolblue\App\Entity\ShoppingCartItem::PRODUCTCLASS_PHYSICAL): ?>
-                                    <strong><?=$item->getQuantity()?></strong><br />
-                                <?php else: ?>
-                                    <?=$item->getQuantity()?><br />
-                                <?php endif; ?>
-                            <?php endforeach; ?>
+                            <?=$item->getQuantity()?>
                         </td>
                         <td>
-                            <?php foreach($line->getItems() as $item): ?>
-                                <?php if ($item->getProductClass() === \Coolblue\App\Entity\ShoppingCartItem::PRODUCTCLASS_PHYSICAL): ?>
-                                    <strong>&euro; <?=number_format($item->getSubtotal() / 100, 2)?></strong><br />
-                                <?php else: ?>
-                                    &euro; <?=number_format($item->getSubtotal() / 100, 2)?><br />
-                                <?php endif; ?>
-                            <?php endforeach; ?>
+                            &euro; <?=number_format($item->getSubtotal() / 100, 2)?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-
-        <strong>Total: &euro; <?=number_format($this->cart->getTotal() / 100, 2)?></strong>
+        <br/><strong>Total: &euro; <?=number_format($this->cart->getTotal() / 100, 2)?></strong>
     </body>
 </html>

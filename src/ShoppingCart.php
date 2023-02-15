@@ -12,7 +12,8 @@ class ShoppingCart
 
     public function __construct()
     {
-        $this->cart = (new ShoppingCartRepository())->getShoppingCart(($_GET["cartid"]) ? $_GET["cartid"] : 1);
+        $shoppingCartId = isset($_GET['cart_id']) ? (int) $_GET['cart_id'] : 1;
+        $this->cart = (new ShoppingCartRepository())->getShoppingCart($shoppingCartId);
     }
 
     /**
