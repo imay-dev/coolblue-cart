@@ -4,17 +4,10 @@ declare(strict_types = 1);
 namespace Coolblue\App\Repository;
 
 use Coolblue\App\Entity\Product;
+use Coolblue\Core\Repository;
 
-
-class ProductRepository
+class ProductRepository extends Repository
 {
-    /** @var \PDO */
-    private $connection;
-
-    public function __construct()
-    {
-        $this->connection = new \PDO("mysql:host=interview_mysql;dbname=coolblue", "interview", "interview");
-    }
 
     /**
      * @param int $productId
@@ -22,7 +15,7 @@ class ProductRepository
      */
     public function getProduct(int $productId): Product
     {
-        $stmt = $this->connection->prepare(
+        $stmt = $this->db->prepare(
             'SELECT * 
                 FROM product 
                 WHERE product_id = ?'
@@ -32,11 +25,11 @@ class ProductRepository
         $result = $stmt->fetch();
 
         return new Product(
-            (int) $result['product_id'],
-            (int) $result['unit_price'],
+            $result['product_id'],
+            $result['unit_price'],
             $result['product_name'],
             $result['product_class'],
-            (int) $result['quantity']
+            $result['quantity']
         );
     }
 
