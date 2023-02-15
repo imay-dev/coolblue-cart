@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Coolblue\Interview\Entity;
+namespace Coolblue\App\Entity;
 
 final class ShoppingCartLine
 {

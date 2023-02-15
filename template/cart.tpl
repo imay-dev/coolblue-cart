@@ -35,7 +35,7 @@
                     <tr>
                         <td>
                             <?php foreach($line->getItems() as $item): ?>
-                                <?php if ($item->getProductClass() === \Coolblue\Interview\Entity\ShoppingCartItem::PRODUCTCLASS_PHYSICAL): ?>
+                                <?php if ($item->getProductClass() === \Coolblue\App\Entity\ShoppingCartItem::PRODUCTCLASS_PHYSICAL): ?>
                                     <strong><?=$item->getProductName()?></strong><br />
                                 <?php else: ?>
                                     <?= ucfirst($item->getProductClass()) ?>: <?=$item->getProductName()?><br />
@@ -44,7 +44,7 @@
                         </td>
                         <td>
                             <?php foreach($line->getItems() as $item): ?>
-                                <?php if ($item->getProductClass() === \Coolblue\Interview\Entity\ShoppingCartItem::PRODUCTCLASS_PHYSICAL): ?>
+                                <?php if ($item->getProductClass() === \Coolblue\App\Entity\ShoppingCartItem::PRODUCTCLASS_PHYSICAL): ?>
                                     <strong><?=$item->getQuantity()?></strong><br />
                                 <?php else: ?>
                                     <?=$item->getQuantity()?><br />
@@ -53,7 +53,7 @@
                         </td>
                         <td>
                             <?php foreach($line->getItems() as $item): ?>
-                                <?php if ($item->getProductClass() === \Coolblue\Interview\Entity\ShoppingCartItem::PRODUCTCLASS_PHYSICAL): ?>
+                                <?php if ($item->getProductClass() === \Coolblue\App\Entity\ShoppingCartItem::PRODUCTCLASS_PHYSICAL): ?>
                                     <strong>&euro; <?=number_format($item->getSubtotal() / 100, 2)?></strong><br />
                                 <?php else: ?>
                                     &euro; <?=number_format($item->getSubtotal() / 100, 2)?><br />

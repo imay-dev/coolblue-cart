@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Coolblue\Interview\Repository;
+namespace Coolblue\App\Repository;
 
-use Coolblue\Interview\Entity\ShoppingCart;
-use Coolblue\Interview\Entity\ShoppingCartItem;
-use Coolblue\Interview\Entity\ShoppingCartLine;
+use Coolblue\App\Entity\ShoppingCart;
+use Coolblue\App\Entity\ShoppingCartItem;
+use Coolblue\App\Entity\ShoppingCartLine;
 
 class ShoppingCartRepository
 {

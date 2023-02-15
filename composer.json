@@ -9,12 +9,11 @@
     ],
     "require": {
         "php": ">=8.0",
-        "ext-pdo": "*",
-        "ext-pdo_mysql": "*"
+        "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {
-            "Coolblue\\Interview\\": "src/"
+            "Coolblue\\App\\": "src/"
         }
     },
     "require-dev": {
@@ -22,7 +21,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Coolblue\\Interview\\Test\\": "test/"
+            "Coolblue\\App\\Test\\": "tests/"
         }
     }
 }

@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Coolblue\Interview;
+namespace Coolblue\App;
 
-use Coolblue\Interview\Repository\ShoppingCartRepository;
+use Coolblue\App\Repository\ShoppingCartRepository;
 
 class ShoppingCart
 {
-    /** @var \Coolblue\Interview\Entity\ShoppingCart */
+    /** @var \Coolblue\App\Entity\ShoppingCart */
     private $cart;
 
     public function __construct()

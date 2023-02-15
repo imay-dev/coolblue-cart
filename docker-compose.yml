@@ -18,7 +18,8 @@ services:
 
   interview_php:
     container_name: interview_php
-    build: ./docker/php
+    build:
+      dockerfile: ./docker/php/Dockerfile
     volumes:
       - ./:/app
     ports:
@@ -27,7 +28,7 @@ services:
   interview_composer:
     image: composer:latest
     container_name: interview_composer
-    command: composer install
+    command: composer install --ignore-platform-reqs
     volumes:
       - ./:/app
 
