@@ -26,4 +26,14 @@ An appointment will be made to talk to you about your assignment. During this on
 
 ---
 ### Docs
-# Intro
+# Instructions:
+Please run the following command to create your .env file
+
+```bash
+docker exec -i interview_php cp .env.example .env
+```
+
+You can run unit tests with following command:
+```bash
+docker exec -i interview_php vendor/bin/phpunit tests
+```
